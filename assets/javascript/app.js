@@ -13,6 +13,15 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var trainName = "";
+var destination = "";
+var firstTrain = "";
+var frequency = "";
+var updateButton = "<button class='btn btn-default' id='update'>Update</button>";
+var removeButton = "<button class='btn btn-default' id='remove'><span class='glyphicon glyphicon-remove'></span></button>"
+var checkButton = "<button class='btn btn-default' id='submitChanges'><span class='glyphicon glyphicon-ok'></span></button>"
+
+
 $(document).ready(function () {
 
     // when the submit button is clicked
@@ -39,10 +48,10 @@ $(document).ready(function () {
     database.ref().on("child_added", function (childSnapshot) {
 
         // store the value that is in firebase
-        var trainName = childSnapshot.val().trainName;
-        var destination = childSnapshot.val().destination;
-        var firstTrain = childSnapshot.val().firstTrain;
-        var frequency = childSnapshot.val().frequency;
+        trainName = childSnapshot.val().trainName;
+        destination = childSnapshot.val().destination;
+        firstTrain = childSnapshot.val().firstTrain;
+        frequency = childSnapshot.val().frequency;
 
         var trainID = trainName.replace(/\s+/g, "");
 
@@ -69,28 +78,36 @@ $(document).ready(function () {
 
         // display all of the fields in a new row in the table
 
-        var updateButton = "<button class='btn btn-default' id='update'>Update</button>";
-        var removeButton = "<button class='btn btn-default' id='remove'><span class='glyphicon glyphicon-remove'></span></button>"
         $("#timeSchedule").append("<tr id=" + trainID + "><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
         // $("#timeSchedule").append("<tr class='trainRow'><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
 
-        $(document).on("click", "#update", function (){
-            // var checkButton = "<button class='btn btn-default' id='remove'><span class='glyphicon glyphicon-ok'></span></button>"
-            // var trainNameInput = "<input type='text' value=" + trainName + ">";
-            console.log("Update Clicked");
-            var rowID = $(this).closest("tr").attr("id");
-            console.log(rowID);
-            // $("#"+rowID).empty();
-            // $("#"+rowID).html("<td>" + checkButton + removeButton + "</td><td>" + trainNameInput + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td>")
-        });
-    
-        $(document).on("click", "#remove", function (){
-            console.log("Remove clicked");
-            var rowID = $(this).closest("tr").attr("id");
-            console.log(rowID);
-    
-    
-        });
+
+    });
+
+    $(document).on("click", "#update", function () {
+        var trainNameInput = "<input type='text' value=" + trainName + ">";
+        var destinationInput = "<input type='text' value=" + destination + ">";
+        var frequencyInput = "<input type='number' value=" + frequency + ">";
+        var firstTrainInput = "<input type='text' value=" + firstTrain + ">";
+
+        console.log("Update Clicked");
+        var rowID = $(this).closest("tr").attr("id");
+        console.log(rowID);
+        $("#" + rowID).empty();
+        $("#" + rowID).html("<td>" + checkButton + removeButton + "</td><td>" + trainNameInput + "</td><td>" + destinationInput + "</td><td>" + frequencyInput + "</td><td>" + firstTrainInput + "<br />**changes first train time</td>")
+
+        $(document).on("click", "#submitChanges", function () {
+            // how to find the unique id assigned by firebase to reference for update
+        })
+
+    });
+
+    $(document).on("click", "#remove", function () {
+        console.log("Remove clicked");
+        var rowID = $(this).closest("tr").attr("id");
+        console.log(rowID);
+        $("#" + rowID).detach();
+        // find the unique id assigned by firebase to reference for removal
 
     });
 

@@ -66,12 +66,13 @@ $(document).ready(function (){
         console.log(nextTrain);
 
         // display all of the fields in a new row in the table
-        $("#timeSchedule").append("<tr><td>" + trainName +"</td><td>" + destination + "</td><td>" +  frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
+        $("#timeSchedule").append("<tr class='trainRow'><td>" + trainName +"</td><td>" + destination + "</td><td>" +  frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
 
     });
-        
-
 
     });
 
 
+// add buttons to update or remove
+// if update is clicked then turn each cell into a form input with the preset info being what is already there
+// if remove is clicked then delete the entire row

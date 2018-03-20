@@ -75,12 +75,13 @@ $(document).ready(function () {
         // $("#timeSchedule").append("<tr class='trainRow'><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
 
         $(document).on("click", "#update", function (){
-            var checkButton = "<button class='btn btn-default' id='remove'><span class='glyphicon glyphicon-ok'></span></button>"
-            // var trainNameInput = "<input type='text' value=" + 
+            // var checkButton = "<button class='btn btn-default' id='remove'><span class='glyphicon glyphicon-ok'></span></button>"
+            // var trainNameInput = "<input type='text' value=" + trainName + ">";
             console.log("Update Clicked");
             var rowID = $(this).closest("tr").attr("id");
             console.log(rowID);
-            rowID.html("<tr id=" + rowID + "><td>" + checkButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>")
+            // $("#"+rowID).empty();
+            // $("#"+rowID).html("<td>" + checkButton + removeButton + "</td><td>" + trainNameInput + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td>")
         });
     
         $(document).on("click", "#remove", function (){

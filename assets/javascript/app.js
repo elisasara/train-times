@@ -13,6 +13,7 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var childName = "";
 var trainName = "";
 var destination = "";
 var firstTrain = "";
@@ -48,12 +49,12 @@ $(document).ready(function () {
     database.ref().on("child_added", function (childSnapshot) {
 
         // store the value that is in firebase
+        childName = childSnapshot.key;
+        console.log(childName);
         trainName = childSnapshot.val().trainName;
         destination = childSnapshot.val().destination;
         firstTrain = childSnapshot.val().firstTrain;
         frequency = childSnapshot.val().frequency;
-
-        var trainID = trainName.replace(/\s+/g, "");
 
         // conver the input to a time format
         var timeForMath = moment(firstTrain, "HH:mm:ss").format();
@@ -78,34 +79,37 @@ $(document).ready(function () {
 
         // display all of the fields in a new row in the table
 
-        $("#timeSchedule").append("<tr id=" + trainID + "><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
+        $("#timeSchedule").append("<tr id=" + childName + "><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
         // $("#timeSchedule").append("<tr class='trainRow'><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + remainder + "</td></tr>");
 
 
     });
 
     $(document).on("click", "#update", function () {
+        // get the snapshot of the child you want to call and use those values for the preset values of the inputs
+        
         var trainNameInput = "<input type='text' value=" + trainName + ">";
         var destinationInput = "<input type='text' value=" + destination + ">";
         var frequencyInput = "<input type='number' value=" + frequency + ">";
         var firstTrainInput = "<input type='text' value=" + firstTrain + ">";
 
-        console.log("Update Clicked");
         var rowID = $(this).closest("tr").attr("id");
-        console.log(rowID);
         $("#" + rowID).empty();
         $("#" + rowID).html("<td>" + checkButton + removeButton + "</td><td>" + trainNameInput + "</td><td>" + destinationInput + "</td><td>" + frequencyInput + "</td><td>" + firstTrainInput + "<br />**changes first train time</td>")
 
         $(document).on("click", "#submitChanges", function () {
-            // how to find the unique id assigned by firebase to reference for update
+            database.ref().child(rowID).update({
+                trainName: trainNameInput.val().trim(),
+                destination: destinationInput.val().trim(),
+                firstTrain: firstTrainInput.val().trim(),
+                frequency: frequencyInput.val().trim()
+            })
         })
 
     });
 
     $(document).on("click", "#remove", function () {
-        console.log("Remove clicked");
         var rowID = $(this).closest("tr").attr("id");
-        console.log(rowID);
         $("#" + rowID).detach();
         // find the unique id assigned by firebase to reference for removal
 

@@ -1,0 +1,62 @@
+.jumbotron {
+    text-align: center;
+    background-color: rgb(9, 4, 83);
+    color: white;
+}
+
+.container {
+    max-width: 600px;
+}
+
+/* #fullContainer {
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 4px;
+    border-color: rgb(2, 141, 2);
+} */
+
+table {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    width: 75px;
+}
+
+#update:hover {
+    background-color: rgb(22, 19, 206);
+    color: white;
+}
+
+#remove:hover {
+    background-color: rgba(255, 0, 0, 0.808);
+    color: white;
+}
+
+#submitChanges:hover {
+    background-color: rgb(1, 58, 1);
+    color: white;
+}
+
+label {
+    margin-top: 10px;
+}
+
+#submitButton {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: rgb(9, 4, 83);
+    border-color: rgb(24, 9, 228);
+    border-width: 2px;
+    color: white;
+}
+
+#submitButton:hover {
+    background-color: rgb(24, 9, 228);
+}

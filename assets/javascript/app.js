@@ -57,7 +57,7 @@ $(document).ready(function () {
         frequency = childSnapshot.val().frequency;
 
         // convert the input to a time format
-        var minutesForMath = moment(firstTrain, "HH:mm").format("mm");
+        var minutesForMath = parseInt(moment(firstTrain, "HH:mm").format("mm"));
         console.log("Minutes for Math:" + minutesForMath);
 
         // format the time in am/pm manner
@@ -69,11 +69,11 @@ $(document).ready(function () {
         console.log("current time:" + currentTime);
 
         // get the minutes for the current time
-        var currentForMath = moment().format("mm");
+        var currentForMath = parseInt(moment().format("mm"));
         console.log("current for math:" + currentForMath);
 
         // find the difference in minutes between the current time and the time of the first train
-        var difference = currentForMath - minutesForMath;
+        var difference = Math.abs(parseInt(currentForMath - minutesForMath));
         console.log("difference:" + difference);
 
         // get the remainder of minutes left when the difference is divided by the frequency
@@ -94,7 +94,7 @@ $(document).ready(function () {
         };
 
         // display all of the fields in a new row in the table
-        $("#timeSchedule").append("<tr id=" + childName + "><td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + timeToAdd + "</td></tr>");
+        $("#timeSchedule").append("<tr id=" + childName + "><td>" + updateButton + "<br />" + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + timeToAdd + "</td></tr>");
 
     });
 
@@ -127,7 +127,7 @@ $(document).ready(function () {
 
 
             $("#" + rowID).empty();
-            $("#" + rowID).html("<td>" + checkButton + removeButton + "</td><td>" + trainNameInput + "</td><td>" + destinationInput + "</td><td>" + frequencyInput + "</td><td>" + firstTrainInput + "<br />**changes first train time</td>")
+            $("#" + rowID).html("<td>" + checkButton + "<br />" + removeButton + "</td><td>" + trainNameInput + "</td><td>" + destinationInput + "</td><td>" + frequencyInput + "</td><td>" + firstTrainInput + "<br />**changes first train time (HH:mm - military time)</td>")
 
         });
 
@@ -157,7 +157,7 @@ $(document).ready(function () {
                 console.log(firstTrainValue);
 
                 // convert the input to a time format
-                minutesForMath = moment(firstTrain, "HH:mm").format("mm");
+                minutesForMath = parseInt(moment(firstTrain, "HH:mm").format("mm"));
                 console.log("Minutes for Math:" + minutesForMath);
 
                 // format the time in am/pm manner
@@ -169,11 +169,11 @@ $(document).ready(function () {
                 console.log("current time:" + currentTime);
 
                 // get the minutes for the current time
-                currentForMath = moment().format("mm");
+                currentForMath = parseInt(moment().format("mm"));
                 console.log("current for math:" + currentForMath);
 
                 // find the difference in minutes between the current time and the time of the first train
-                difference = currentForMath - minutesForMath;
+                difference = Math.abs(parseInt(currentForMath - minutesForMath));
                 // var difference = moment().diff(timeForMath, "minutes");
                 console.log("difference:" + difference);
 
@@ -196,7 +196,7 @@ $(document).ready(function () {
 
                 // display all of the fields in a new row in the table
 
-                $("#" + rowID).html("<td>" + updateButton + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + timeToAdd + "</td></tr>");
+                $("#" + rowID).html("<td>" + updateButton + "<br />" + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + timeToAdd + "</td></tr>");
 
             });
 
@@ -213,12 +213,3 @@ $(document).ready(function () {
     });
 
 });
-
-
-
-
-
-
-// add buttons to update or remove
-// if update is clicked then turn each cell into a form input with the preset info being what is already there
-// if remove is clicked then delete the entire row

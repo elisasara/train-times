@@ -195,7 +195,6 @@ $(document).ready(function () {
                 };
 
                 // display all of the fields in a new row in the table
-
                 $("#" + rowID).html("<td>" + updateButton + "<br />" + removeButton + "</td><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + timeToAdd + "</td></tr>");
 
             });
